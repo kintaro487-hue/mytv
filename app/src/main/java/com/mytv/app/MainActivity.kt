@@ -1,4 +1,4 @@
-package com.example.mytvapp
+package com.mytv.app
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
