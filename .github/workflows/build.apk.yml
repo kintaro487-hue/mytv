@@ -1,0 +1,31 @@
+name: Build Android TV APK
+
+on:
+  push:
+    branches: [ main ] # Tự động build mỗi khi bạn code xong và đẩy lên nhánh main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Chạy trên máy chủ ảo của GitHub
+
+    steps:
+    - name: Checkout mã nguồn
+      uses: actions/checkout@v3
+
+    - name: Cài đặt Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cấp quyền cho bộ đóng gói Gradle
+      run: chmod +x gradlew
+
+    - name: Bắt đầu đóng gói APK (Debug)
+      run: ./gradlew assembleDebug
+
+    - name: Lưu file APK để tải về
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-tv-app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
